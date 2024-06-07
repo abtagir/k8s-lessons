@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name : kgb1-web
-          image: adv4000/k8sphp:version1
+          image: abtagir/k8sphp:version1
           ports:
             - containerPort: 80
