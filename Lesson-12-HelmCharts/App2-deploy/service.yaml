@@ -4,7 +4,7 @@ metadata:
   name: my-single-pod2-service
   labels:
     env  : prod
-    owner: DenisAstahov
+    owner: TagirAbdulkhaev
 spec:
   selector:
     project: kgb2    # Selecting PODS with those Labels
