@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shop-backend
+  template:
+    metadata:
+      labels:
+        app: shop-backend
+    spec:
+      containers:
+      - name: shop-backend
+        image: hub.example.com/shop-backend:1.0.0
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+          initialDelaySeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 1
+          failureThreshold: 2
+
+#Your application team developed a shop backend API, which runs on port 3000. Application team has asked you to deploy the created container image, which has to be deployed on k8s cluster.
+#Your task:
+#Write a k8s deployment definition according to expectations listed below:
+#- The deployment is configured to deploy a minimum of three pod replicas;
+#- Every pod runs a single container, hub.example.com/shop-backend:1.0.0;
+#- The container exposes port 3000;
+#- The container must have configured a LivenessProbe, which makes requests to the /healthz endpoint on port 3000;
+#- Additional configuration on the LivenessProbe:
+#     set initial probe delay to 10 seconds
+#- The container must have configured a ReadinessProbe, which makes requests to the / endpoint on port 3000;
+#- Additional configurations on the ReadinessProbe:
+#     Set initial probe delay to 10 seconds
+#     Set check period to 1 second
+#     Set max probe failures to 2
+
+
+#Assume that:
+#- Probes use httpGet requests;
+#- The Deployment will be created in the default namespace (it's not expected to define it's own namespace);
+#Your solution will be applied using kubectl apply -n default solution.yaml;
+# The file you are editing should be written as a valid yaml file;
+#-Use Deployment object from apiGroup apps/v1;
+#- The deployment will run on k8s v1.16
