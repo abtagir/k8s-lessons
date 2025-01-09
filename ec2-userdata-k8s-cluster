@@ -68,3 +68,13 @@ fi
 
 # Enable kubelet service
 systemctl enable kubelet
+
+#Steps:
+#Instance Tags: Assign the tag role=master to the EC2 instance intended to be the master node. Use role=worker for worker nodes.
+#Launch EC2 Instances: Provide the above script as user-data while launching each EC2 instance.
+#Security Groups:
+#Allow inbound traffic on ports 6443 (API server), 10250 (kubelet), and others required for Kubernetes communication.
+#Allow nodes to communicate with each other (NodePort, pod-to-pod traffic).
+#Network: The script uses the Calico network plugin. Make sure the CIDR (192.168.0.0/16) doesn't conflict with existing networks.
+#Master Node Output: Check the /join-command.sh file on the master node for the worker nodes to join.
+
